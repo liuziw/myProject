@@ -1,0 +1,13 @@
+.container-btn{
+	margin-top:-22px;
+	height:50px;
+	background: #f6f8f8;
+	line-height:50px;
+	border:1px solid #e7eaec;
+	border-top:none;
+	border-bottom-left-radius:5px;
+	border-bottom-right-radius:5px;
+}
+.btm-top{
+	margin-top: 10px;
+}

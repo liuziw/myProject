@@ -1,0 +1,36 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<link href="${basePath}/static/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+<!-- Sweet alert -->
+<script src="${basePath}/static/js/plugins/sweetalert/sweetalert.min.js"></script>
+<script type="text/javascript">
+    function sweetalert(msg,type) {
+        swal({
+            title: "提示",
+            type: type==null?"info":type,   // info,warning,error,success
+            confirmButtonText: "确定",
+            allowOutsideClick:true,
+            allowEscapeKey:true,
+            text: msg
+        });
+    }
+
+   function sweetconfirm(title,msg,callback) {
+       swal({
+               title: title,
+               text: msg,
+               type: "warning",// info,warning,error,success
+               showCancelButton: true,
+               confirmButtonColor: "#DD6B55",
+               confirmButtonText: "确定",
+               cancelButtonText: "取消",
+               closeOnConfirm: true,
+               closeOnCancel: true
+           },
+           function (isConfirm) {
+               if (isConfirm) {
+                   callback();
+               }
+           });
+   }
+
+</script>

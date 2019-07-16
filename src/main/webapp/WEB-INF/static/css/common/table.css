@@ -1,0 +1,34 @@
+#tables{
+	overflow: hidden;
+}
+#pager{
+	padding-right:0px;
+}
+tr th{
+	text-align: center;
+}
+.search-item{
+	width:100%!important;
+}
+.item-label{
+	width:20%;
+}
+.item-select{
+	width:78%!important;
+	padding-bottom:2px!important;
+}
+.m-btm{
+	margin-bottom:10px;
+}
+.search-content{
+	margin:10px auto 20px;
+}
+.clear-fix{
+	overflow: hidden;
+}
+.m-left{
+	margin-left:24px;
+}
+.mg-t-26{
+	margin-top: 26px;
+}
