@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zw.mapper.RoleMapper" >
+
+    <select id="selectByPager" resultType="com.zw.domain.Role" parameterType="java.util.Map" >
+        select * from sys_role
+        order by id ASC
+    </select>
+	
+	
+<select id="findByIds" resultType="com.zw.domain.Role" >
+    select id, role, description, available from sys_role where id in
+    <foreach item="item" index="index" collection="ids"
+             open="(" separator="," close=")">
+        #{item}
+    </foreach>
+</select>
+
+  <resultMap id="BaseResultMap" type="com.zw.domain.Role" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="role" property="role" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="available" property="available" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, role, description, available
+  </sql>
+  <select id="selectRoleModuleById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+      sr.id,
+      sr.role,
+      sr.description,
+      sr.available,
+      srm.roleid,
+      srm.moduleid
+  FROM
+    sys_role sr
+  INNER JOIN
+    sys_role_module srm
+  ON sr.id = srm.roleid
+  WHERE
+    sr.id = #{0}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_role
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectRoleSelective" resultMap="BaseResultMap" parameterType="com.zw.domain.Role" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM sys_role
+    WHERE 1=1
+    <if test="id != null">
+      AND id = #{id}
+    </if>
+    <if test="role != null">
+      AND role = #{role}
+    </if>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_role
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zw.domain.Role" >
+    insert into sys_role (id, role, description, 
+      available)
+    values (#{id,jdbcType=INTEGER}, #{role,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{available,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zw.domain.Role" useGeneratedKeys="true" keyProperty="id">
+    insert into sys_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="role != null" >
+        role,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="available != null" >
+        available,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="role != null" >
+        #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="available != null" >
+        #{available,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zw.domain.Role" >
+    update sys_role
+    <set >
+      <if test="role != null" >
+        role = #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="available != null" >
+        available = #{available,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zw.domain.Role" >
+    update sys_role
+    set role = #{role,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      available = #{available,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

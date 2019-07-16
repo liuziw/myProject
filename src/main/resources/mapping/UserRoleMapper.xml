@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zw.mapper.UserRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.zw.domain.UserRoleKey" >
+    <id column="userid" property="userid" jdbcType="INTEGER" />
+    <id column="roleid" property="roleid" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="com.zw.domain.UserRoleKey" >
+    delete from sys_user_role
+    where userid = #{userid,jdbcType=INTEGER}
+      and roleid = #{roleid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteUserRoleSelective" parameterType="com.zw.domain.UserRoleKey">
+    DELETE FROM
+    sys_user_role
+    WHERE 1 = 1
+    <if test="userid !=null">
+      AND  userid = #{userid,jdbcType=INTEGER}
+    </if>
+    <if test="roleid !=null">
+      AND roleid = #{roleid,jdbcType=INTEGER}
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zw.domain.UserRoleKey" >
+    insert into sys_user_role (userid, roleid)
+    values (#{userid,jdbcType=INTEGER}, #{roleid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zw.domain.UserRoleKey" >
+    insert into sys_user_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="roleid != null" >
+        roleid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="roleid != null" >
+        #{roleid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>
